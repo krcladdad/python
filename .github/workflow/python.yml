@@ -1,8 +1,11 @@
 name: Calculator Test By Python
 
-on: [push]
-
-jobs:
+on:
+  push:
+    branches:
+      - main
+        
+jobs: 
   build:
     runs-on: ubuntu-latest
 
