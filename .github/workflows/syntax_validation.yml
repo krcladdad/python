@@ -1,0 +1,28 @@
+name: Syntax Validation for calculator code
+
+on  :
+  push:
+    branches: [ main ] 
+
+jobs:
+ build:
+  runs-on: ubuntu-latest
+
+  steps:
+    - name : checkout  code
+      uses: actions/checkout@v3
+
+    - name: install python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Syntax check using compileall
+      run: python -m compileall .
+      
+    - name: Fail if syntax errors exist
+      run: |
+        if ! python -m compileall .; then
+          echo "Syntax errors found!"
+          exit 1
+        fi
