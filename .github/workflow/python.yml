@@ -4,13 +4,12 @@ on:
   push:
     branches:
       - main
-        
+
 jobs: 
   build:
     runs-on: ubuntu-latest
 
-    steps:
-    uses: 
+    steps: 
     - name: checkout code
       uses: actions/checkout@v2
 
