@@ -17,6 +17,7 @@ print("Select operation: 1.Add 2.Subtract 3.Multiply 4.Divide")
 choice = input("Enter choice (1/2/3/4): ")
 num1 = float(input("Enter first number: "))
 num2 = float(input("Enter second number: "))
+print("Thanks for using calculator")
 
 if choice == '1':
     print(add(num1, num2))
