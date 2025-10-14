@@ -1,4 +1,4 @@
-name: Calculator Test By Python
+name: Calculator Test By Python (checking syntax, unit tests, coverage report ,build docker image and push to docker hub)
 
 on:
   push:
@@ -24,16 +24,36 @@ jobs:
         python -m pip install --upgrade pip
         pip install coverage pytest
 
-    
+    - name: Syntax check using compileall
+      run: python -m compileall .
+
+    - name: Fail if syntax errors exist
+      run: |
+        if ! python -m compileall .; then
+          echo "Syntax errors found!"
+          exit 1
+        fi
+
     - name: Run unit tests
       run: python -m unittest discover
 
     - name: Coverage report
       run: |
-        pip install coverage
         coverage run -m pytest
         coverage report
 
+    - name: Build Docker image
+      run: docker build -t my-python-calculator .
+
       
-    - name: done successfully
-      run: echo "done successfully"
+    - name: Login to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin    
+    
+    - name: Tag Docker image
+      run: docker tag my-python-calculator ${{ secrets.DOCKER_USERNAME }}/my-python-calculator:latest
+
+    - name: Push Docker image to Docker Hub
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/my-python-calculator:latest
+      
+    - name: Done successfully
+      run: echo "✅ CI pipeline completed successfully!"
