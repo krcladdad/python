@@ -49,10 +49,10 @@ jobs:
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin    
     
     - name: Tag Docker image
-      run: docker tag my-python-calculator ${{ secrets.DOCKER_USERNAME }}/my-python-calculator:latest
+      run: docker tag my-python-calculator-web ${{ secrets.DOCKER_USERNAME }}/my-python-calculator-web:latest
 
     - name: Push Docker image to Docker Hub
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/my-python-calculator:latest
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/my-python-calculator-web:latest
       
     - name: Done successfully
       run: echo "✅ CI pipeline completed successfully!"
