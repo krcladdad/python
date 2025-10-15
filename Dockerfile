@@ -9,7 +9,11 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies
-RUN pip install --upgrade pip &&     python -m pip install --upgrade pip &&  pip install coverage pytest 
+RUN pip install --upgrade pip  && pip install -r requirements.txt 
+
+
+# Expose Flask default port
+EXPOSE 5000
 
 # Run the calculator
-CMD ["python", "calculator.py"]
+CMD ["python", "app.py"]
